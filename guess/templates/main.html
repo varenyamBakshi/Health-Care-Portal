@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Form 1</title>
+    </head>
+    <body>
+        {% if form %}
+        <form id="form" action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+        {% endif %}
+        <br>
+        <br>
+        {% if output %}
+        <h2>decision_tree = {{disease1}}</h2>
+        <h2>gradient_boost = {{disease3}}</h2>
+        <h2>random_forest = {{disease4}}</h2>
+        {% endif %}
+    </body>
+</html>
