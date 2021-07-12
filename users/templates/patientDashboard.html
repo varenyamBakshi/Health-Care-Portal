@@ -1,0 +1,130 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+<div class="main-wrapper">
+	<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-8 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								
+							</nav>
+							<h2 class="breadcrumb-title">List of Doctors</h2>
+						</div>
+						<div class="col-md-4 col-12 d-md-block d-none">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+
+            <div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-md-12 col-lg-4 col-xl-3 theiaStickySidebar">
+						
+							<!-- Search Filter -->
+							<div class="card search-filter">
+								<div class="card-header">
+									<h4 class="card-title mb-0">Search Filter</h4>
+								</div>
+								<div class="card-body">
+								
+                                    <div class="filter-widget">
+                                        <h4>Select Specialist</h4>
+                                        <form method="GET">
+                                            {{myFilter.form.as_p}}
+                                            <div class="btn-search">
+                                            <button type="submit" class="btn btn-block">Search</button>
+                                        </div>
+                                        </form><br>
+                                        <h5>Selected city : {{city}} </h5>	
+                                    </div>
+							    </div>
+							<!-- /Search Filter -->
+							
+						    </div>
+						    </div>
+
+    <div class="col-md-12 col-lg-8 col-xl-9">   
+        <div class="box-element">
+            <a href="{% url 'patientAppointments'%}" class="btn btn-sm btn-primary">MY APPOINTMENTS</a>
+            <a href="{% url 'patientProfileUpdate'%}" class="btn btn-sm btn-danger">COMPLETE PROFILE</a>
+            <a href="{% url 'myprescriptions'%}" class="btn btn-sm btn-danger">My prescriptions</a>
+            <br />
+        </div>
+<div class="box-element">
+
+<br>
+
+<hr>
+<div>
+   <!-- Doctor Widget -->
+						
+                                {% for i in doctors %}
+                                <div class="card">
+								<div class="card-body">
+									<div class="doctor-widget">
+										<div class="doc-info-left">
+											<div class="doc-info-cont">
+												<h4 class="doc-name"><a href="doctor-profile.html">Dr. {{i.user.first_name}} {{i.user.last_name}}</a></h4>
+												<p class="doc-speciality">{{i.speciality}} Specialist</p>
+												<div class="clinic-services">
+													<h5>Working Hours: </h5>
+													&ensp;
+															<p>{{i.open_time}} - {{i.close_time}}</p> 
+                                                        </div>
+                                                        <div class="clinic-services">
+                                                        <h5>Click on slot time to book Appointment: </h5>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <div class="clear"></div>
+													 {% for ekdoctor in saareDoctor %}
+                                                            {% if ekdoctor.0 == i.user.id %}
+                                                                {% for timelist in ekdoctor %}
+                                                                    {% if ekdoctor.0 != timelist %}
+                                                                    <div >
+                                                                        {% for item in timelist %}
+                                                                            {% if timelist.0 == item %}
+                                                                           
+                                                                                {{item.day_name}} => 
+                                                                            {% else %}
+                                                                                {% if item.occupied == False %}
+                                                                                
+                                                                                <a class="timing" href="{% url 'bookAppointment' i.user.id timelist.0.day_name item.start_time %}" ><span>{{ item.start_time }}-{{ item.end_time }} </span></a> 
+                                                                                {% endif %}
+                                                                            {% endif %}
+                                                                        {% endfor %}
+                                                                        <br>
+                                                                        </div><br>
+                                                                        <br>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                    {% endfor %}
+												</div>
+												
+											</div>
+										</div>
+										<div class="doc-info-right">
+											<div class="clini-infos">
+												<ul>
+													
+													<li><i class="fas fa-map-marker-alt"></i> {{i.city}}</li>
+												</ul>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+   
+    {% endfor %}
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

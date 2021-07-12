@@ -1,0 +1,88 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+			<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								
+							</nav>
+							<h2 class="breadcrumb-title">My Appoitments</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+<div class="align-self-center">
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						
+						
+								
+
+							
+						
+						
+						<div class="col-md-7 col-lg-8 col-xl-9">
+							<div class="card card-table">
+								<div class="card-body">
+								
+									<!-- Invoice Table -->
+									<div class="table-responsive">
+										<table class="table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Doctor's Name</th>
+													<th>Speciality</th>
+													<th>Day</th>
+													<th>Time</th>
+													<th>Meeting Link</th>
+                                                    <th>Date when Booked</th>
+                                                    <th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												
+													
+                                            {% for i in appointments %}
+                                                        <tr>
+
+
+													<td>
+														<h2 class="table-avatar">
+															<a href="patient-profile.html">{{i.doctor}}<span>#{{i.doctor.id}}</span></a>
+														</h2>
+													</td>
+													<td>{{i.doctor.speciality}}</td>
+													<td>{{i.time_slot.day.day_name}}</td>
+                                                    <td>{{i.time_slot.start_time}}-{{i.time_slot.end_time}}</td>
+													<td>{{i.meeting_link}}</td>
+                                                    <td>{{i.date_made}}</td>
+													<td class="text-right">
+														<div class="table-action">
+															<a href="{% url 'appointmentMeds' i.id %}" class="btn btn-sm btn-primary">Details</a>
+															
+														</div>
+													</td>
+												</tr>
+                                                {% endfor %}
+											</tbody>
+										</table>
+									</div>
+									<!-- /Invoice Table -->
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+</div>
+{% endblock %}

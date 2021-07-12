@@ -1,0 +1,34 @@
+{% extends 'doctor/base.html' %}{% load static %} {% block content %}
+<h1>Update Profile</h1>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  {{doctorForm.as_p}}
+  <input type="submit" name="submitDoctorForm" value="Submit" />
+</form><br>
+
+<h7>Working Days : {% for i in workingDays %}{{i.day_name}}, {% endfor %} </h7><br>
+          <form method="POST" action="">
+            {% csrf_token %} {{workingDaysForm}}
+              <input type="submit" name="submitWorkingDayForm" value="Add" />
+          </form>
+
+
+
+<span>{{workingDaysForm.errors}}</span>
+<span>{{doctorForm.errors}}</span>
+
+<br><br>
+ <h5>Slots : </h5>
+ <h7>Sunday : {% for i in sunday %}{{i.start_time}}, {% endfor %} </h7><br>
+ <h7>Monday : {% for i in monday %}{{i.start_time}}, {% endfor %} </h7><br>
+ <h7>Tuesday : {% for i in tuesday %}{{i.start_time}}, {% endfor %} </h7><br>
+ <h7>Wednesday : {% for i in wednesday %}{{i.start_time}}, {% endfor %} </h7><br>
+ <h7>Thursday : {% for i in thursday %}{{i.start_time}}, {% endfor %} </h7><br>
+ <h7>Friday : {% for i in friday %}{{i.start_time}}, {% endfor %} </h7><br>
+ <h7>Saturday : {% for i in saturday %}{{i.start_time}}, {% endfor %} </h7><br>
+<form method="POST" action="">
+            {% csrf_token %} {{timeSlotsForm}}
+              <input type="submit" name="submitTimeSlotsForm" value="Add Slot" />
+          </form>
+{% endblock %}

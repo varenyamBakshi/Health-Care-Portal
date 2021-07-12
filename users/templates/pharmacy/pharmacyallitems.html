@@ -1,0 +1,71 @@
+{% extends 'pharmacy/phamacistnav.html' %}
+{% load static %} 
+{% block content %}
+{% if alert %}
+    <script>alert("Your Cart Contained item from other Sellers are removed. ");</script>
+{% endif %}
+<form method="GET">
+    {{myFilter.form}}
+    <input type="submit">
+</form>
+<br>
+<div class="row mb-5">
+    <div class="site-blocks-table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            
+            <th class="product-name">Product</th>
+            <th class="product-price">Price</th>
+            <th class="product-price">CP (Cost Price)</th>
+            <th class="product-quantity">Available Quantity</th>
+            <th class="product-name">Minimum Quantity</th>
+            <th class="product-name">Brand</th>
+            <th class="product-total">Margin Per Unit</th>
+            <th class="product-remove">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td class="product-name">
+                  <h2 class="h5 text-black">{{product.name}}</h2>
+                </td>
+                <td>&#x20B9; {{product.price|floatformat:2}}</td>
+                <td>&#x20B9; {{product.cp|floatformat:2}}</td>
+                <td>
+                  <div class="input-group mb-3" style="max-width: 120px;">
+                    <div class="input-group-prepend">
+                      <button data-product="{{product.id}}" data-act="dec" class="btn btn-outline-primary delete-product" type="button">&minus;</button>
+                    </div>
+                    <input type="text" class="form-control text-center" value="{{product.available}}" placeholder=""
+                      aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <div class="input-group-append">
+                      <button data-product="{{product.id}}" data-act="inc" class="btn btn-outline-primary delete-product" type="button">&plus;</button>
+                    </div>
+                  </div>
+
+                </td>
+                <td>{{product.minquantity}}</td>
+                <td>{{product.brand}}</td>
+                <td>&#x20B9; {{product.profit}}</td>
+                <td><button data-product="{{product.id}}" data-act="delete" class="btn btn-primary height-auto btn-sm delete-product">X</button></td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+      <div class="row mb-5">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <a href="{% url 'addproduct' %}"><button class="btn btn-primary btn-md btn-block">Add Product</button></a>
+        </div>
+       
+      </div>
+      
+    </div>
+ 
+  </div>
+{% endblock content %}

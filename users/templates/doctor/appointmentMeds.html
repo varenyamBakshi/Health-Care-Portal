@@ -1,0 +1,67 @@
+{% extends 'doctor/base.html' %}{% load static %} {% block content %}
+<div class="container">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box-element">
+        <table class="table">
+            <tr>
+                <th><h5>Patients's Name: {{appointment.patient.user.first_name}} {{appointment.doctor.user.last_name}}</h5></th>
+                <th><h5>Time alloted: {{appointment.alloted_time}}</h5></th>
+                <th><h5>Date: {{appointment.date_made}}</h5></th>
+            </tr>
+        <tr>
+        <th><h5>Meeting link: {{appointment.meeting_link}} <a href="{% url 'videocall' appointment.id %}"><button>Join</button></a></h5></th>
+        
+        <th><h5>Disease Hint(ML MODEL): <a href="{{url}}">{{disease}}</a> (click to know more)</h5></th>
+        </tr>
+    </table>
+    </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="box-element">
+            
+        <center><h1>Recommended Medication</h1></center>
+        <hr>
+        <div class="cart-row">
+            <div style="flex: 1;"><h5><strong>Medicine</strong></h5></div>
+            <div style="flex: 1;"><h5><strong>Instructions</strong></h5></div>
+        </div>
+        {% for i in meds %}
+            <div class="cart-row">
+                <div style="flex: 1;">{{i.name}}</div>
+                <div style="flex: 1;">{{i.detail}}</div>
+            </div>
+        {% endfor %}
+        <a href="{% url 'updateAppointmentMeds' pk %}"><button>Add medicines</button></a>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="box-element">
+            
+        <center><h1>Symptoms</h1></center>
+        <hr>
+        <div class="cart-row">
+            <div style="flex: 1;"><h5><strong>Symptoms</strong></h5></div>
+            
+        </div>
+        {% for i in symptoms %}
+            <div class="cart-row">
+                <div style="flex: 1;">{{i.name}}</div>
+                
+            </div>
+        {% endfor %}
+        <div class="cart-row">
+            <form method="POST" action="">
+                {% csrf_token %} 
+                <div style="flex: 1;">{{form}}</div>
+                <br>
+                <input value="Add Symptom" type="submit" name="Submit"/>
+              </form>
+        </div>
+        </div>
+    </div>
+   
+<br/> 
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+<!-- Breadcrumb -->
+			<div class="breadcrumb-bar">
+				<div class="container-fluid">
+					<div class="row align-items-center">
+						<div class="col-md-12 col-12">
+							<nav aria-label="breadcrumb" class="page-breadcrumb">
+								
+							</nav>
+							<h2 class="breadcrumb-title">Detail</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Breadcrumb -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						
+						
+							
+						
+						<div class="col-md-7 col-lg-8 col-xl-9">
+							<div class="card card-table">
+								<div class="card-body">
+								
+									<!-- Invoice Table -->
+									<div >
+							<div class="card">
+								
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table mb-0">
+											<thead>
+												<tr>
+													<th>Doctor Name: {{appointment.doctor.user.first_name}} {{appointment.doctor.user.last_name}}</th>
+													<th>Time:alloted: {{appointment.alloted_time}}</th>
+													<th>Date:{{appointment.date_made}}</th>
+												</tr>
+											</thead>
+											<tbody>
+												<th>
+													Meeting link: {{appointment.meeting_link}} <a href="{% url 'videocall' appointment.id %}"><button>Join</button></a>
+												</th>
+												<th>Diseases hint (ML MODEL) : <a href="{{url}}">{{disease}}</a> (click to know more)</th>
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+									<div class="row">
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Recommended Medication</h3>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-hover mb-0">
+											<thead>
+												<tr>
+													<th>Medicine</th>
+													<th>Instructions</th>
+												
+												</tr>
+											</thead>
+											<tbody>
+                                            {% for i in meds %}
+                                                    <tr>
+													<td>{{i.name}}</td>
+													<td>{{i.detail}}</td>
+													
+												</tr>
+                                             {% endfor %}
+												
+											
+											</tbody>
+
+										</table>
+										&ensp;
+<a class="btn btn-primary" href="{% url 'pinandbuypharmacy' appointment.id %}">Pin & Buy</a>
+									</div>
+
+								</div>
+							</div>
+							
+							
+							<br>
+						</div>
+
+						<div class="col-lg-6">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Your Symptoms</h3>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-hover mb-0">
+											<thead>
+												<tr>
+													<th>Syptoms</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+                                             {% for i in symptoms %}
+                                                <tr>
+													<td>{{i.name}}</td>
+													
+												</tr>
+                                            {% endfor %}
+												
+												</tr>
+                                                
+											</tbody>
+                                            
+										</table>
+											
+									        <div class=" cart-row">
+                                                        <form method="POST" action="">
+                                                            {% csrf_token %} 
+                                                            <div style="flex: 1;">{{form}}</div>
+                                                            <br>
+                                                            <input class="btn btn-primary" value="Add Symptom" type="submit" name="Submit"/>
+                                                        </form>
+										
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+									<!-- /Invoice Table -->
+									
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+
+
+
+{% endblock %}

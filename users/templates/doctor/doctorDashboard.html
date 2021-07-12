@@ -1,0 +1,17 @@
+{% extends 'doctor/base.html' %}{% load static %} {% block content %}
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12"> 
+            <div class="box-element">
+<h1>Hello Doctor,</h1>
+            </div>
+            <br>
+            <div class="box-element">
+
+<a href="{% url 'doctorAppointments'%}" class="btn btn-sm btn-primary">MY APPOINTMENTS</a>
+<a href="{% url 'doctorProfileUpdate'%}" class="btn btn-sm btn-danger">COMPLETE PROFILE</a>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

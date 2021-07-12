@@ -1,0 +1,35 @@
+{% extends 'pathology/pathologistnav.html' %}
+{% load static %}
+{% block content %}
+{% if alert %}
+    <script>alert("Your Cart Contained item from other Sellers are removed. ");</script>
+{% endif %}
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="box-element">
+            <div class="cart-row">
+                <div style="flex: 2;"><strong>Name</strong></div>
+                <div style="flex: 1;"><strong>Price</strong></div>
+                
+                <div style="flex: 1;"><strong>Method</strong></div>
+
+                <div style="flex :1;"><font style="color: red;">Delete</font></div>
+            </div>
+            {% for product in products %}
+            {% if product.available < product.minquantity %}
+            <div class="cart-row">
+                <div style="flex: 2">{{product.name}}</div>
+                <div style="flex: 1">&#x20B9; {{product.price|floatformat:2}}</div>
+                
+                
+                
+                <div style="flex: 1;">{{product.brand}}</div>
+
+                <div style="flex: 1;"><button data-product="{{product.id}}" data-act="delete" class="btn btn-outline-dark delete-product">Delete</button></div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock content %}

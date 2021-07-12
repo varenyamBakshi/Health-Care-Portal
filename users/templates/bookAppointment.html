@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+<div class="container">
+    <div class="col-lg-12">
+        <div class="box-element">
+    <h1>Confirm Appointment</h1>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit">
+    </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'pharmacy/navbar.html' %}
+{% load static %} 
+{% block content %}
+<div class="row mb-5">
+    <div class="col-md-12">
+      <div class="site-blocks-table">
+          <a href="javascript:history.go(-1);" class="btn btn-outline-dark">&#x2190; Continue Shopping</a>
+          <br>
+          <br>
+          <table class="table">
+              <tr>
+                  <th><h3>Items: <strong>{{order.get_cart_items}}</strong></h3></th>
+                  <th><h3>Total: <strong>&#x20B9; {{order.cartvalue|floatformat:2}}</strong></h3></th>
+                  <th>
+                      <a style="float: right; margin: 5px;" href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
+                  </th>
+              </tr>
+          </table>
+          <br>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="product-thumbnail">Image</th>
+              <th class="product-name">Product</th>
+              <th class="product-price">Price</th>
+              
+              <th class="product-quantity"> Quantity</th>
+              
+              <th class="product-name">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for item in items %}
+            <tr>
+              <td class="product-thumbnail">
+                <img src="{{item.product.image.url}}" alt="Image" class="img-fluid">
+              </td>
+              <td class="product-name">
+                <h2 class="h5 text-black">{{item.product.name}}</h2>
+              </td>
+              <td>&#x20B9; {{item.product.price|floatformat:2}}</td>
+              
+              <td>
+                <div class="input-group mb-3" style="max-width: 120px;">
+                  <div class="input-group-prepend">
+                    <button data-product="{{item.product.id}}" data-action="remove" class="btn btn-outline-primary update-cart" type="button">&minus;</button>
+                  </div>
+                  <input type="text" class="form-control text-center" value="{{item.quantity}}" placeholder=""
+                    aria-label="Example text with button addon" aria-describedby="button-addon1">
+                  <div class="input-group-append">
+                    <button data-product="{{item.product.id}}" data-action="add" class="btn btn-outline-primary update-cart" type="button">&plus;</button>
+                  </div>
+                </div>
+              </td>
+              <td>&#x20B9; {{item.get_total}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

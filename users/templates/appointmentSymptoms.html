@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+<h1>My symptoms</h1>
+{% for i in symptoms %}
+    <div>
+        {{i.name}}
+    </div>
+    {% endfor %}
+    <a href="{% url 'updateAppointmentSymptoms' pk %}" class="btn btn-sm btn-danger">Update Symptoms</a><br>
+    <a href="{% url 'guessDisease' pk %}" class="btn btn-sm btn-primary">Guess Disease</a><br>
+<br /> {% endblock %}

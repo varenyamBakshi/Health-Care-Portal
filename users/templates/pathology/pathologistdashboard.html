@@ -1,0 +1,24 @@
+{% extends 'pathology/pathologistnav.html' %}
+{% load static %}
+{% block content %}
+{% if alert %}
+    <script>alert("Your Cart Contained item from other Sellers are removed. ");</script>
+{% endif %}
+    <div class="row">
+        {% for product in products %}
+        <div class="col-lg-4">
+            
+            <div class="box-element product">
+                <h6><strong>{{product.name}}</strong></h6>
+                <div class="para1">{{product.quantity}}</div>
+                <div class="para2"> By {{product.brand}} </div>
+                <br>
+                <div class="para1">CONTAINS: {{product.drugs}}</div>
+                <hr>
+                <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart-walkin-pathology">Add To Cart</button>
+                <h4 style="display: inline; float: right;">&#x20B9; {{product.price|floatformat:2}}</h4>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

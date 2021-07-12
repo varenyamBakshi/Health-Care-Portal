@@ -1,0 +1,73 @@
+{% extends 'pharmacy/navbar.html' %}
+{% load static %} 
+{% block content %}
+    <div class="row">
+        {% for order in myorders %}
+        <br><br>
+        <div class="col-md-12">
+            <div class="site-blocks-table">
+            	<table class="table">
+                    <tr>
+                        <th><h3>Items: <strong>{{order.get_cart_items}}</strong></h3></th>
+                        <th><h3>Total: <strong>&#x20B9; {{order.cartvalue|floatformat:2}}</strong></h3></th>
+                        {% if button %}
+                        <th>
+                            <a data-order="{{order.id}}" style="float: right; margin: 5px;" class="btn btn-success deliver-order">Mark Delivered</a>
+                        </th>
+                        {% endif %}
+                        {% if order.delivered %}
+                        <th>
+                            <a style="float: right; margin: 5px;" class="btn btn-success">Delivered</a>
+                        </th>
+                        {% else %}
+                        <th>
+                            <a style="float: right; margin: 5px;" class="btn btn-lg">Pending</a>
+                        </th>
+                        {% endif %}
+                    </tr>
+                    {% if customerinfo %}
+                    <tr>
+                        <th><h5>Name: <strong>{{order.customer.user.first_name}} </strong></h5></th>
+                        <th><h5>Address: <strong></strong></h5></th>
+                        <th><h5>Phone: <strong>{{order.customer.patient.phone}}</strong></h5></th>
+                    </tr>
+                    {% endif %}
+                </table>
+                <br>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="product-thumbnail">Image</th>
+                    <th class="product-name">Product</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-remove">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for item in items reversed %}
+                {% if item.order == order %}
+                  <tr>
+                    <td class="product-thumbnail">
+                      <img src="{{item.product.image.url}}" alt="Image" class="img-fluid">
+                    </td>
+                    <td class="product-name">
+                      <h2 class="h5 text-black">{{item.product.name}}</h2>
+                    </td>
+                   
+                    <td>&#x20B9; {{item.product.price|floatformat:2}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>&#x20B9; {{item.get_total}}</td>
+                  </tr>
+    
+                {% endif %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <br><br>
+        </div>
+        
+        {% endfor %}
+    </div>
+{% endblock content %}

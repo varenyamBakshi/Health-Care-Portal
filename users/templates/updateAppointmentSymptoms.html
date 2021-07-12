@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
+<h1>Update Appointment Symptoms</h1>
+<form method="POST" action="">
+  {% csrf_token %} {{form.as_p}}
+  <input type="submit" name="Submit" />
+</form>
+<br><br><br><span>{{form.errors}}</span>
+
+{% endblock %}

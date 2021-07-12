@@ -1,0 +1,46 @@
+{% extends 'pharmacy/nav2.html' %}
+{% load static %} 
+{% block content %}
+{% if pinandbuy %}
+<div class="box2">
+    <h4><strong>PRESCRIPTION</strong></h4>
+    <hr>
+    {% for med in prescriptionmedicine %}
+    {{med.name}}</h6>
+    <hr>
+    {% endfor %}
+</div>
+{% endif %}
+    <div class="row">
+        {% for pharma in pharmacies %}
+        <div class="col-12 col-md-6 col-lg-4 d-flex">
+            <div class="card flex-fill">
+                <img alt="Card Image" src="{{pharma.image.url}}" class="card-img-top">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">{{pharma.PharmaName}}</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">City: {{pharma.PharmaAddress}}</p>
+                    <p class="card-text">Contact: {{pharma.phone}}</p>
+                    {% if pinandbuy %}
+<a href="{% url 'pinandbuystore' pharma.id pid %}">
+{% else %}
+<a href="{% url 'store' pharma.id %}">
+{% endif %}
+<button type="button" class="btn btn-primary">Shop Here</button>
+</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+          $( "#product" ).autocomplete({
+            source:['js','python','django'],
+          });
+        } );
+        </script>
+{% endblock content %}

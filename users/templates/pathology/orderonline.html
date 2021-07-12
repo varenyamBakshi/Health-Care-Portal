@@ -1,0 +1,49 @@
+{% extends 'pathology/pathologistnav.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        {% for order in myorders%}
+        <div class="col-lg-12">
+            <div class="box-element">
+                <table class="table">
+                    <tr>
+                        <th><h5>Items: <strong>{{order.get_cart_items}} </strong></h5></th>
+                        <th><h5>Total: <strong>&#x20B9; {{order.cartvalue|floatformat:2}}</strong></h5></th>
+                        {% if button %}
+                        <th>
+                            <a data-order="{{order.id}}" style="float: right; margin: 5px;" class="btn btn-success deliver-order-pathology">Mark Delivered</a>
+                        </th>
+                        {% endif %}
+                    </tr>
+                    {% if customerinfo %}
+                    <tr>
+                        <th><h5>Name: <strong>{{order.customer.user.first_name}} </strong></h5></th>
+                        <th><h5>Email: <strong>{{order.customer.user.email}}</strong></h5></th>
+                        <th><h5>Phone: <strong>{{order.customer.patient.phone}}</strong></h5></th>
+                    </tr>
+                    {% endif %}
+                </table>
+            <br>
+                <div class="cart-row">
+                    <div style="flex: 2"></div>
+                    <div style="flex: 2"><strong>Tests</strong></div>
+                    <div style="flex: 1"><strong>Price</strong></div>
+                    
+                    <div style="flex: 1"><strong>Total</strong></div>
+                </div>
+                {% for item in items %}
+                {% if item.order == order %}
+                <div class="cart-row">
+                    <div style="flex: 2"><img class="row-image" src="{% static 'pharmacy/images/card.PNG' %}"></div>
+                    <div style="flex: 2">{{item.product.name}}</div>
+                    <div style="flex: 1">&#x20B9; {{item.product.price|floatformat:2}}</div>
+                    
+                    <div style="flex: 1">&#x20B9; {{item.get_total}} </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
